@@ -28,10 +28,10 @@ Fill in the following table with appropriate values:
 
 | Rule | Type | Protocol | Port | Source | Purpose |
 |------|------|----------|------|--------|---------|
-| 1    | SSH  | TCP      | ?    | ?      | Admin access |
-| 2    | ?    | TCP      | 80   | ?      | Web traffic |
-| 3    | ?    | TCP      | 443  | ?      | Secure web |
-| 4    | Custom TCP | TCP | ?  | 10.0.0.0/8 | Internal API |
+| 1    | SSH  | TCP      | 22    | 203.0.113.25/32 | Admin access |
+| 2    | HTTP    | TCP      | 80   | 0.0.0.0/0 | Web traffic |
+| 3    | HTTPS    | TCP      | 443  | 0.0.0.0/0 | Secure web |
+| 4    | Custom TCP | TCP | 8080  | 10.0.0.0/8 | Internal API |
 
 ### Task 2: Create Security Group (Console)
 1. Navigate to EC2 → Security Groups → Create
@@ -76,9 +76,9 @@ Given these symptoms, identify the likely cause:
 
 | Symptom | Likely Cause | Solution |
 |---------|--------------|----------|
-| Can't SSH to instance | ? | ? |
-| Website not loading | ? | ? |
-| API calls timing out | ? | ? |
+| Can't SSH to instance | SSH (port 22) not allowed from your IP, or your IP changed | Add/verify an inbound rule allowing TCP 22 from your current public IP /32 |
+| Website not loading | HTTP/HTTPS ports not open in the security group | Ensure inbound rules allow TCP 80 (HTTP) and/or TCP 443 (HTTPS) from 0.0.0.0/0 |
+| API calls timing out | Port 8080 not allowed from the calling network | Add inbound rule allowing TCP 8080 from the correct CIDR (e.g., 10.0.0.0/8) |
 
 ## Deliverables
 1. Completed security group rules table (Task 1)
